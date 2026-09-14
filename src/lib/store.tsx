@@ -7,6 +7,7 @@ import {
   TENDERS,
   generateDiscoveredTender,
   type Category,
+  type CeInfo,
   type DocType,
   type GeneratedDoc,
   type PieceStatus,
