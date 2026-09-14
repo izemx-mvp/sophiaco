@@ -29,6 +29,7 @@ import {
   formatMAD,
 } from "@/components/common";
 import { AssistantPanel } from "@/components/assistant-panel";
+import { CeBadge, CeCard } from "@/components/ce-card";
 import { ProductModal } from "@/components/product-modal";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -283,6 +284,7 @@ function TenderDetail() {
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge status={t.status} />
             <DeadlineBadge deadline={t.deadline} />
+            <CeBadge tender={t} />
           </div>
         </div>
 
@@ -437,6 +439,9 @@ function TenderDetail() {
         >
           {tab === "Fiche de synthèse" && (
             <div className="grid gap-4 xl:grid-cols-3">
+              <div className="xl:col-span-3">
+                <CeCard tender={t} />
+              </div>
               <div className="glass-card p-6 xl:col-span-2">
                 <h2 className="font-display text-base font-semibold">Synthèse générée par l'IA</h2>
                 <div className="clinical-rule my-4" />

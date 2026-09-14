@@ -1,10 +1,10 @@
-import { STAGES, conformityRate, productById, type Tender } from "./mock-data";
+import { STAGES, conformityRate, evaluateCe, productById, type Tender } from "./mock-data";
 
 export const SUGGESTED_QUESTIONS = [
   "Quel est le budget de ce dossier ?",
   "Quels produits sont non conformes ?",
   "Quand est la date limite ?",
-  "Quel certificat dois-je utiliser pour ce dossier ?",
+  "Puis-je soumissionner avec le certificat d'enregistrement ?",
   "Résume ce dossier en 3 points.",
 ];
 
@@ -46,8 +46,19 @@ export function getAssistantReply(question: string, t: Tender): string {
     return `Sur ${t.requirements.length} ligne(s), ${ko.length} non conforme(s) et ${warn.length} à vérifier :\n${lines.join("\n")}\nScore global de conformité : ${conformityRate(t)}%.`;
   }
 
-  if (has(q, ["certificat", "autorisation", "enregistrement"])) {
-    return `Pour ${t.ref}, utilisez le certificat d'enregistrement du partenaire avec autorisation : le certificat FZANA est actuellement en cours de renouvellement. Joignez l'autorisation signée à l'acte d'engagement.`;
+  if (has(q, ["certificat", "autorisation", "enregistrement", " ce ", "titulaire", "distributeur"])) {
+    const ce = t.ce;
+    const ev = evaluateCe(ce);
+    const verdict =
+      ev.level === "blocked"
+        ? "\u{1F6AB} Soumission impossible en l'\u00e9tat"
+        : ev.level === "warn"
+          ? "\u26A0\uFE0F Soumission possible sous condition"
+          : "\u2705 Soumission recevable";
+    const actions = ev.actions.length
+      ? `\n\u00c0 faire :\n${ev.actions.map((x) => `\u2022 ${x}`).join("\n")}`
+      : "";
+    return `Certificat d'enregistrement de ${t.ref} \u2014 cas \u00ab ${ce.rule} \u00bb (${ce.rcArticle}).\nTitulaire : ${ce.holder}, n\u00b0 ${ce.number}. FZANA intervient comme ${ce.fzanaIsHolder ? "titulaire" : "distributeur"}${ce.fzanaIsHolder ? "" : ce.authorization ? " avec autorisation du titulaire" : " sans autorisation \u00e0 ce jour"}.\n${verdict} \u2014 ${ev.message}${actions}`;
   }
 
   if (has(q, ["date limite", "echeance", "deadline", "quand", "delai"])) {

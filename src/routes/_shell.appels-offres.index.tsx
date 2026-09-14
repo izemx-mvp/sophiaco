@@ -22,6 +22,7 @@ import {
   StatusBadge,
   formatMAD,
 } from "@/components/common";
+import { CeBadge } from "@/components/ce-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
@@ -346,7 +347,10 @@ function TendersPage() {
                         <DeadlineBadge deadline={t.deadline} />
                       </td>
                       <td className="px-4 py-3">
-                        <StatusBadge status={t.status} />
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <StatusBadge status={t.status} />
+                          <CeBadge tender={t} />
+                        </div>
                       </td>
                       <td className="px-4 py-3 tabular-nums">{t.requirements.length}</td>
                       <td className="px-4 py-3">
@@ -431,6 +435,9 @@ function TendersPage() {
                 <div className="mt-3 flex items-center justify-between">
                   <DeadlineBadge deadline={t.deadline} />
                   <ScoreGauge value={conformityRate(t)} />
+                </div>
+                <div className="mt-3">
+                  <CeBadge tender={t} />
                 </div>
                 <div className="mt-4 flex gap-2">
                   {t.status === "Nouveau" && (
