@@ -1224,7 +1224,8 @@ function ceFor(i: number, category: Category): CeInfo {
 }
 
 export const TENDERS: Tender[] = seeds.map((s, i) => {
-
+  const ce = ceFor(i, s.category);
+  const requirements: Requirement[] = s.lines.map((l, j) => ({
     id: `${s.ref}-L${j + 1}`,
     article: l[0],
     qty: l[1],
