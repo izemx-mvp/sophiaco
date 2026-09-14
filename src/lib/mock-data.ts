@@ -1381,6 +1381,8 @@ export function generateDiscoveredTender(opts: {
   const objet = `Achat de matériel médico-technique (${category.toLowerCase()}) destiné aux formations sanitaires de ${city}`;
   const caution = Math.round((budget * 0.015) / 1000) * 1000;
 
+  const ce = ceFor(Math.floor(Math.random() * 4), category);
+
   return {
     id: slugRef(ref),
     ref,
@@ -1395,7 +1397,8 @@ export function generateDiscoveredTender(opts: {
     status: "Nouveau",
     stage: 1,
     requirements,
-    pieces: buildPieces(slugRef(ref), 1),
+    pieces: buildPieces(slugRef(ref), 1, ce.rule),
+    ce,
     history: [{ at, label: "Dossier identifié par l'Agent Veille sur marchespublics.gov.ma" }],
     summary: [
       `Objet du marché : ${objet}.`,
