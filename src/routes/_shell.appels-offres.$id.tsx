@@ -437,6 +437,9 @@ function TenderDetail() {
         >
           {tab === "Fiche de synthèse" && (
             <div className="grid gap-4 xl:grid-cols-3">
+              <div className="xl:col-span-3">
+                <CeCard tender={t} />
+              </div>
               <div className="glass-card p-6 xl:col-span-2">
                 <h2 className="font-display text-base font-semibold">Synthèse générée par l'IA</h2>
                 <div className="clinical-rule my-4" />
