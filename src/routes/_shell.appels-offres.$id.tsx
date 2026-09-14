@@ -284,6 +284,7 @@ function TenderDetail() {
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge status={t.status} />
             <DeadlineBadge deadline={t.deadline} />
+            <CeBadge tender={t} />
           </div>
         </div>
 
