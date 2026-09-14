@@ -279,6 +279,8 @@ export type Tender = {
   stage: number; // 1..6
   requirements: Requirement[];
   pieces: DossierPiece[];
+  /** Exigence « Certificat d'Enregistrement » relevée dans le RC. */
+  ce: CeInfo;
   summary: string[];
   history: HistoryEntry[];
   result?: "Gagné" | "Perdu" | undefined;
