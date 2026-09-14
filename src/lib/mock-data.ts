@@ -1276,14 +1276,15 @@ export const TENDERS: Tender[] = seeds.map((s, i) => {
     status: statusForStage(s.stage, s.lines, s.result),
     result: s.result,
     requirements,
-    pieces: buildPieces(slugRef(s.ref), s.stage),
+    pieces: buildPieces(slugRef(s.ref), s.stage, ce.rule),
+    ce,
     history,
     summary: [
       `Objet du marché : ${s.objet}.`,
       `Procédure : ${s.procedure ?? AOO}, ouverture des plis le ${new Date(s.deadline).toLocaleDateString("fr-FR")} à 10h00.`,
       `Budget estimé ${s.budget.toLocaleString("fr-MA")} MAD, caution provisoire ${s.caution.toLocaleString("fr-MA")} MAD.`,
       `${requirements.length} lot(s) analysé(s) — taux de conformité produit estimé à ${avg}% sur la base du catalogue FZANA.`,
-      `Certificat d'enregistrement mobilisable : partenaire avec autorisation (certificat FZANA en cours de renouvellement).`,
+      `Certificat d'enregistrement (${ce.rcArticle}) : ${ce.rule.toLowerCase()} — ${evaluateCe(ce).message}`,
     ],
   } satisfies Tender;
 });
