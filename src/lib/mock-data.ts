@@ -116,6 +116,152 @@ export type DossierPiece = {
   note: string;
 };
 
+/* ------------------------------------------------------------------ */
+/* Certificat d'Enregistrement (CE) — exigence à vérifier dans le RC   */
+/* ------------------------------------------------------------------ */
+
+export type CeRule =
+  | "Titulaire uniquement"
+  | "Distributeur autorisé"
+  | "Usage unique"
+  | "Non exigé";
+
+export const CE_RULES: CeRule[] = [
+  "Titulaire uniquement",
+  "Distributeur autorisé",
+  "Usage unique",
+  "Non exigé",
+];
+
+export const CE_RULE_HELP: Record<CeRule, string> = {
+  "Titulaire uniquement":
+    "Seul le titulaire du certificat d'enregistrement peut soumissionner. Un distributeur ne peut pas participer, même muni d'une autorisation.",
+  "Distributeur autorisé":
+    "Les distributeurs peuvent soumissionner à condition de joindre une autorisation délivrée par le titulaire du CE.",
+  "Usage unique":
+    "Le CE ne peut être mobilisé que pour une seule offre : soit par le titulaire, soit par un seul distributeur — jamais les deux.",
+  "Non exigé": "Le règlement de consultation n'exige pas de certificat d'enregistrement.",
+};
+
+export type CeInfo = {
+  /** Cas retenu après lecture du règlement de consultation. */
+  rule: CeRule;
+  /** Article du RC où l'exigence a été relevée. */
+  rcArticle: string;
+  /** Titulaire du certificat d'enregistrement. */
+  holder: string;
+  /** Numéro d'enregistrement DMP. */
+  number: string;
+  /** FZANA est-elle titulaire du CE mobilisé ? */
+  fzanaIsHolder: boolean;
+  /** Autorisation écrite du titulaire obtenue et signée. */
+  authorization: boolean;
+  /** Pour le cas « Usage unique » : qui a mobilisé le CE (null = non réservé). */
+  usageClaimedBy: string | null;
+};
+
+export type CeEvaluation = {
+  level: "ok" | "warn" | "blocked";
+  label: string;
+  message: string;
+  actions: string[];
+};
+
+/** Évalue l'éligibilité de FZANA au regard de l'exigence CE du dossier. */
+export function evaluateCe(ce: CeInfo): CeEvaluation {
+  if (ce.rule === "Non exigé")
+    return {
+      level: "ok",
+      label: "CE non exigé",
+      message: "Le règlement de consultation n'impose pas de certificat d'enregistrement.",
+      actions: [],
+    };
+
+  if (ce.rule === "Titulaire uniquement") {
+    return ce.fzanaIsHolder
+      ? {
+          level: "ok",
+          label: "Éligible — titulaire",
+          message: `FZANA est titulaire du CE n° ${ce.number} : la soumission est recevable.`,
+          actions: ["Joindre la copie du certificat d'enregistrement au dossier technique."],
+        }
+      : {
+          level: "blocked",
+          label: "Soumission impossible",
+          message: `Le RC réserve la soumission au titulaire du CE (${ce.holder}). En tant que distributeur, FZANA ne peut pas participer, même avec une autorisation.`,
+          actions: [
+            "Écarter le dossier ou proposer une gamme dont FZANA est titulaire du CE.",
+            "Vérifier si un additif au CPS assouplit l'exigence.",
+          ],
+        };
+  }
+
+  if (ce.rule === "Distributeur autorisé") {
+    if (ce.fzanaIsHolder)
+      return {
+        level: "ok",
+        label: "Éligible — titulaire",
+        message: `FZANA est titulaire du CE n° ${ce.number} : aucune autorisation tierce n'est nécessaire.`,
+        actions: [],
+      };
+    return ce.authorization
+      ? {
+          level: "ok",
+          label: "Éligible — autorisation en place",
+          message: `Autorisation du titulaire ${ce.holder} obtenue : FZANA peut soumissionner en tant que distributeur.`,
+          actions: ["Joindre l'autorisation signée du titulaire au dossier technique."],
+        }
+      : {
+          level: "warn",
+          label: "Autorisation à obtenir",
+          message: `FZANA est distributeur : une autorisation écrite de ${ce.holder} est obligatoire avant le dépôt.`,
+          actions: [
+            `Demander l'autorisation d'utilisation du CE n° ${ce.number} à ${ce.holder}.`,
+            "Ajouter la pièce « Autorisation du titulaire du CE » au dossier.",
+          ],
+        };
+  }
+
+  // Usage unique
+  const me = "FZANA Systems";
+  if (ce.usageClaimedBy && ce.usageClaimedBy !== me)
+    return {
+      level: "blocked",
+      label: "CE déjà mobilisé",
+      message: `Le CE n° ${ce.number} est déjà engagé sur ce marché par ${ce.usageClaimedBy}. Il ne peut servir qu'une seule fois : FZANA ne peut pas l'utiliser.`,
+      actions: [
+        "Chercher un CE alternatif (autre titulaire / autre gamme).",
+        "Confirmer auprès du titulaire qu'aucune autre offre ne s'appuie sur ce CE.",
+      ],
+    };
+  if (!ce.usageClaimedBy)
+    return {
+      level: "warn",
+      label: "Usage unique — CE à réserver",
+      message: `Le CE n° ${ce.number} n'est pas encore réservé pour ce marché. Il ne peut être utilisé que par une seule offre : sécurisez son exclusivité avant le dépôt.`,
+      actions: [
+        `Obtenir de ${ce.holder} la confirmation écrite d'exclusivité pour ce marché.`,
+        "Réserver le CE pour FZANA dans le dossier.",
+      ],
+    };
+  return {
+    level: ce.fzanaIsHolder || ce.authorization ? "ok" : "warn",
+    label:
+      ce.fzanaIsHolder || ce.authorization
+        ? "Éligible — CE réservé à FZANA"
+        : "CE réservé — autorisation manquante",
+    message:
+      ce.fzanaIsHolder || ce.authorization
+        ? `Le CE n° ${ce.number} est mobilisé exclusivement par FZANA pour ce marché.`
+        : `Le CE n° ${ce.number} est réservé à FZANA, mais l'autorisation écrite de ${ce.holder} manque encore.`,
+    actions:
+      ce.fzanaIsHolder || ce.authorization
+        ? ["Joindre l'attestation d'exclusivité au dossier technique."]
+        : [`Obtenir l'autorisation signée de ${ce.holder}.`],
+  };
+}
+
+
 export type Tender = {
   id: string;
   ref: string;
