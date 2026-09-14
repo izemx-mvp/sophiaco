@@ -387,8 +387,8 @@ export const PIECES_MODEL: Array<Omit<DossierPiece, "id" | "status">> = [
 ];
 
 /** Construit les pièces d'un dossier selon son avancement. */
-export function buildPieces(ref: string, stage: number): DossierPiece[] {
-  return PIECES_MODEL.map((p, i) => {
+export function buildPieces(ref: string, stage: number, ceRule?: CeRule): DossierPiece[] {
+  const pieces = PIECES_MODEL.map((p, i) => {
     let status: PieceStatus = "À produire";
     if (stage >= 4) status = p.mandatory ? "Fournie" : "À produire";
     else if (stage >= 2) status = i % 3 === 2 ? "À produire" : "Fournie";
@@ -396,7 +396,22 @@ export function buildPieces(ref: string, stage: number): DossierPiece[] {
     if (stage < 4 && p.mandatory && i === 12 && stage >= 2) status = "Manquante";
     return { ...p, id: `${ref}-P${i + 1}`, status };
   });
+  if (ceRule === "Distributeur autorisé" || ceRule === "Usage unique") {
+    pieces.push({
+      id: `${ref}-P-CE`,
+      name: "Autorisation d'utilisation du certificat d'enregistrement (CE)",
+      category: "Dossier technique",
+      mandatory: true,
+      note:
+        ceRule === "Usage unique"
+          ? "Autorisation exclusive du titulaire : le CE ne peut être mobilisé que par une seule offre."
+          : "Autorisation écrite délivrée par le titulaire du CE au distributeur soumissionnaire.",
+      status: stage >= 4 ? "Fournie" : "À produire",
+    });
+  }
+  return pieces;
 }
+
 
 type RawProduct = Omit<Product, "supplierId" | "purchasePrice" | "salePrice">;
 
