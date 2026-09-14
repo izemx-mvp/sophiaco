@@ -29,6 +29,7 @@ import {
   formatMAD,
 } from "@/components/common";
 import { AssistantPanel } from "@/components/assistant-panel";
+import { CeBadge, CeCard } from "@/components/ce-card";
 import { ProductModal } from "@/components/product-modal";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
