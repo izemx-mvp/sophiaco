@@ -253,6 +253,54 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  /** Met à jour l'exigence « Certificat d'Enregistrement » d'un dossier. */
+  const updateCe = useCallback((tenderId: string, patch: Partial<CeInfo>) => {
+    setTenders((list) =>
+      list.map((t) => {
+        if (t.id !== tenderId) return t;
+        const ce = { ...t.ce, ...patch };
+        if (patch.rule && patch.rule !== "Usage unique") ce.usageClaimedBy = null;
+        const needsAuth = ce.rule === "Distributeur autorisé" || ce.rule === "Usage unique";
+        const authId = `${t.id}-P-CE`;
+        let pieces = t.pieces;
+        if (needsAuth && !pieces.some((p) => p.id === authId)) {
+          pieces = [
+            ...pieces,
+            {
+              id: authId,
+              name: "Autorisation d'utilisation du certificat d'enregistrement (CE)",
+              category: "Dossier technique" as const,
+              mandatory: true,
+              note: "Autorisation écrite délivrée par le titulaire du CE au distributeur soumissionnaire.",
+              status: ce.authorization ? ("Fournie" as PieceStatus) : ("À produire" as PieceStatus),
+            },
+          ];
+        } else if (!needsAuth) {
+          pieces = pieces.filter((p) => p.id !== authId);
+        } else if (patch.authorization !== undefined) {
+          pieces = pieces.map((p) =>
+            p.id === authId
+              ? { ...p, status: patch.authorization ? "Fournie" : ("À produire" as PieceStatus) }
+              : p,
+          );
+        }
+        const label = patch.rule
+          ? `Exigence CE mise à jour depuis le RC : ${patch.rule}`
+          : patch.usageClaimedBy !== undefined
+            ? patch.usageClaimedBy
+              ? `Certificat d'enregistrement réservé pour ${patch.usageClaimedBy}`
+              : "Réservation du certificat d'enregistrement levée"
+            : patch.authorization !== undefined
+              ? patch.authorization
+                ? "Autorisation du titulaire du CE enregistrée"
+                : "Autorisation du titulaire du CE retirée"
+              : "Informations CE mises à jour";
+        return { ...t, ce, pieces, history: [...t.history, { at: nowStamp(), label }] };
+      }),
+    );
+  }, []);
+
+
   const visibleTenders = useMemo(() => {
     if (!criteriaSaved) return tenders;
     return tenders.filter(
