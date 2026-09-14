@@ -345,6 +345,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     runAnalysis,
     runVeille,
     setPieceStatus,
+    updateCe,
     products,
     getProduct: (id) => products.find((p) => p.id === id),
     addProduct: (p) =>
