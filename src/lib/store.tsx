@@ -70,6 +70,7 @@ type Ctx = {
   runAnalysis: (id: string) => void;
   runVeille: () => Tender[];
   setPieceStatus: (tenderId: string, pieceId: string, status: PieceStatus) => void;
+  updateCe: (tenderId: string, patch: Partial<CeInfo>) => void;
 
   products: Product[];
   getProduct: (id: string) => Product | undefined;
