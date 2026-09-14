@@ -346,7 +346,10 @@ function TendersPage() {
                         <DeadlineBadge deadline={t.deadline} />
                       </td>
                       <td className="px-4 py-3">
-                        <StatusBadge status={t.status} />
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <StatusBadge status={t.status} />
+                          <CeBadge tender={t} />
+                        </div>
                       </td>
                       <td className="px-4 py-3 tabular-nums">{t.requirements.length}</td>
                       <td className="px-4 py-3">
