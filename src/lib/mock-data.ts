@@ -1199,8 +1199,32 @@ const D = (day: number, hour: string) => `0${day}/09/2026 ${hour}`.slice(-16);
 /** Identifiant d'URL sûr à partir d'une référence de marché (ex. 34/2026/CHUIRC). */
 export const slugRef = (ref: string) => ref.replace(/[^A-Za-z0-9]+/g, "-");
 
+/** Exigence CE relevée dans le RC, variable d'un dossier à l'autre. */
+function ceFor(i: number, category: Category): CeInfo {
+  const rule = CE_RULES[i % 4]!;
+  const holders: Record<string, string> = {
+    "Bloc opératoire": "MedTech Maghreb",
+    Diagnostic: "Sanitas Distribution",
+    Réanimation: "MedTech Maghreb",
+    Stérilisation: "Cleanmed Industrie",
+    "Mobilier médical": "FZANA Systems",
+    Consommables: "Cleanmed Industrie",
+  };
+  const holder = holders[category] ?? "MedTech Maghreb";
+  const fzanaIsHolder = holder === "FZANA Systems";
+  return {
+    rule,
+    rcArticle: `Article ${8 + (i % 6)} du règlement de consultation`,
+    holder: fzanaIsHolder ? "FZANA Systems (titulaire)" : holder,
+    number: `DMP/${2022 + (i % 4)}/${String(100 + i * 37).slice(0, 4)}`,
+    fzanaIsHolder,
+    authorization: !fzanaIsHolder && i % 3 !== 1,
+    usageClaimedBy: rule === "Usage unique" ? (i % 3 === 0 ? "FZANA Systems" : null) : null,
+  };
+}
+
 export const TENDERS: Tender[] = seeds.map((s, i) => {
-  const requirements: Requirement[] = s.lines.map((l, j) => ({
+
     id: `${s.ref}-L${j + 1}`,
     article: l[0],
     qty: l[1],
