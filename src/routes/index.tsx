@@ -55,8 +55,10 @@ function LoginPage() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-sm"
         >
-          <img src={LOGO} alt="Sophiaco" className="h-10 w-auto" />
-          <h1 className="mt-8 font-display text-3xl font-semibold">Connexion</h1>
+          <img src={LOGO} alt="Sophiaco" className="h-20 w-auto logo-glow" />
+          <h1 className="mt-8 font-display text-3xl font-semibold">
+            Connexion <span className="text-brand-animated">Sophiaco</span>
+          </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Accédez au backoffice de pilotage des appels d'offres.
           </p>
