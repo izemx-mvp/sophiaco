@@ -29,9 +29,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useApp } from "@/lib/store";
 import { toast } from "sonner";
 
-import logoAsset from "@/assets/sophiaco-logo.png.asset.json";
-
-const LOGO = logoAsset.url;
+const LOGO = "/sophiaco-logo.png";
 
 const NAV = [
   { to: "/criteres", label: "Critères", icon: SlidersHorizontal },

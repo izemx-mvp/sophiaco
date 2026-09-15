@@ -28,9 +28,7 @@ export const Route = createFileRoute("/")({
   component: LoginPage,
 });
 
-import logoAsset from "@/assets/sophiaco-logo.png.asset.json";
-
-const LOGO = logoAsset.url;
+const LOGO = "/sophiaco-logo.png";
 
 function LoginPage() {
   const [email, setEmail] = useState("agent@sophiaco.ma");
