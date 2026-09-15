@@ -89,22 +89,22 @@
   --charcoal: oklch(30% 0.008 240);
   --clinical-line: oklch(88% 0.025 210);
 
-  --chart-1: oklch(36% 0.072 249);
-  --chart-2: oklch(63% 0.104 178);
-  --chart-3: oklch(48% 0.102 238);
-  --chart-4: oklch(78% 0.12 178);
+  --chart-1: oklch(33% 0.152 266);
+  --chart-2: oklch(56% 0.099 148);
+  --chart-3: oklch(55% 0.115 252);
+  --chart-4: oklch(72% 0.115 148);
   --chart-5: oklch(72% 0.15 65);
 
-  --sidebar: oklch(98.5% 0.003 220);
-  --sidebar-foreground: oklch(26% 0.014 240);
-  --sidebar-primary: oklch(36% 0.072 249);
+  --sidebar: oklch(98.5% 0.006 260);
+  --sidebar-foreground: oklch(26% 0.02 262);
+  --sidebar-primary: oklch(33% 0.152 266);
   --sidebar-primary-foreground: oklch(99% 0 0);
-  --sidebar-accent: oklch(95% 0.026 178);
-  --sidebar-accent-foreground: oklch(36% 0.072 249);
-  --sidebar-border: oklch(91% 0.006 240);
-  --sidebar-ring: oklch(63% 0.104 178);
+  --sidebar-accent: oklch(95% 0.028 148);
+  --sidebar-accent-foreground: oklch(33% 0.152 266);
+  --sidebar-border: oklch(91% 0.012 260);
+  --sidebar-ring: oklch(56% 0.099 148);
 
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   --font-sans: "DM Sans", "Segoe UI", sans-serif;
   --font-display: "Space Grotesk", "Segoe UI", sans-serif;
 }
