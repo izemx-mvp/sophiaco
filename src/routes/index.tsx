@@ -125,21 +125,45 @@ function LoginPage() {
         </motion.div>
       </div>
 
-      <div className="relative hidden overflow-hidden gradient-brand lg:block">
-        {[0, 1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full border border-white/15 bg-white/5 animate-float-slow"
-            style={{
-              width: 160 + i * 110,
-              height: 160 + i * 110,
-              top: `${8 + i * 18}%`,
-              left: `${-10 + i * 22}%`,
-              animationDelay: `${i * 1.6}s`,
-            }}
+      <div className="relative hidden overflow-hidden brand-mesh lg:block">
+        <div className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:54px_54px]" />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="absolute left-1/2 top-[34%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2"
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="absolute inset-0 rounded-full border border-white/25 animate-orbit"
+              style={{
+                transform: `rotate(${i * 60}deg)`,
+                animationDuration: `${26 + i * 9}s`,
+                animationDirection: i % 2 ? "reverse" : "normal",
+                scale: `${1 - i * 0.16}`,
+              }}
+            />
+          ))}
+          <span className="absolute inset-10 rounded-full bg-white/10 backdrop-blur-sm" />
+          <img
+            src={LOGO}
+            alt="Sophiaco"
+            className="absolute left-1/2 top-1/2 w-52 -translate-x-1/2 -translate-y-1/2 brightness-0 invert opacity-95 animate-float-slow"
           />
-        ))}
+        </motion.div>
+
         <div className="relative flex h-full flex-col justify-end p-12 text-primary-foreground">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur-md"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-glow)]" />
+            Marchés publics santé · Maroc
+          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -157,6 +181,26 @@ function LoginPage() {
             Veille automatisée des marchés publics, matching technique du catalogue et génération
             des dossiers de réponse — pilotés par vos agents IA.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 }}
+            className="mt-8 grid max-w-md grid-cols-3 gap-3"
+          >
+            {[
+              { k: "24/7", v: "Veille continue" },
+              { k: "6", v: "Étapes pilotées" },
+              { k: "IA", v: "Assistant dossier" },
+            ].map((s) => (
+              <div
+                key={s.k}
+                className="rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur-md"
+              >
+                <p className="font-display text-xl font-semibold">{s.k}</p>
+                <p className="text-[11px] text-primary-foreground/75">{s.v}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </div>
