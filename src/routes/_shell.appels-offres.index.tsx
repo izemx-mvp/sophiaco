@@ -39,12 +39,12 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/appels-offres/")({
   head: () => ({
     meta: [
-      { title: "Appels d'offres — FZANA Control" },
+      { title: "Appels d'offres — Sophiaco Control" },
       {
         name: "description",
-        content: "Liste filtrable des appels d'offres publics santé suivis par FZANA Systems.",
+        content: "Liste filtrable des appels d'offres publics santé suivis par Sophiaco.",
       },
-      { property: "og:title", content: "Appels d'offres — FZANA Control" },
+      { property: "og:title", content: "Appels d'offres — Sophiaco Control" },
       {
         property: "og:description",
         content: "Recherche, filtres, tri et analyse IA des marchés publics santé.",

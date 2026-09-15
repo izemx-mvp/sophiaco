@@ -22,16 +22,16 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/criteres")({
   head: () => ({
     meta: [
-      { title: "Configuration des critères — FZANA Control" },
+      { title: "Configuration des critères — Sophiaco Control" },
       {
         name: "description",
         content:
           "Définissez les critères internes de veille : catégories, zones, budget et mots-clés.",
       },
-      { property: "og:title", content: "Configuration des critères — FZANA Control" },
+      { property: "og:title", content: "Configuration des critères — Sophiaco Control" },
       {
         property: "og:description",
-        content: "Paramétrez le premier filtre de l'Agent de Veille FZANA.",
+        content: "Paramétrez le premier filtre de l'Agent de Veille Sophiaco.",
       },
     ],
   }),
@@ -309,7 +309,7 @@ function CriteriaPage() {
         >
           <div className="space-y-3">
             {[
-              { key: "fzana", label: "Certificat FZANA (en cours de renouvellement)" },
+              { key: "fzana", label: "Certificat Sophiaco (en cours de renouvellement)" },
               { key: "partenaire", label: "Certificat d'un partenaire avec autorisation" },
             ].map((o) => (
               <label

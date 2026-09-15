@@ -131,7 +131,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [suppliers, setSuppliers] = useState<Supplier[]>(SUPPLIERS);
   const [notifications, setNotifications] = useState([
     { id: "n1", label: "Agent Veille a identifié 3 nouveaux appels d'offres", at: "il y a 12 min" },
-    { id: "n2", label: "Certificat FZANA : renouvellement à suivre", at: "il y a 2 h" },
+    { id: "n2", label: "Certificat Sophiaco : renouvellement à suivre", at: "il y a 2 h" },
     {
       id: "n3",
       label: "Agent Matching a terminé l'analyse du dossier CHU-2026-0142",
@@ -152,7 +152,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       id: "matching",
       name: "Agent Matching Technique & Catalogue",
       description:
-        "Apparie chaque ligne du cahier des charges au catalogue FZANA, calcule les scores de conformité et vérifie les certificats.",
+        "Apparie chaque ligne du cahier des charges au catalogue Sophiaco, calcule les scores de conformité et vérifie les certificats.",
       active: true,
       lastRun: "Aujourd'hui à 09:15",
       actionsToday: 128,

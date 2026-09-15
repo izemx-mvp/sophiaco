@@ -26,13 +26,13 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/dashboard")({
   head: () => ({
     meta: [
-      { title: "Tableau de bord — FZANA Control" },
+      { title: "Tableau de bord — Sophiaco Control" },
       {
         name: "description",
         content:
-          "Vue d'ensemble des appels d'offres suivis, du budget et de l'activité des agents IA FZANA.",
+          "Vue d'ensemble des appels d'offres suivis, du budget et de l'activité des agents IA Sophiaco.",
       },
-      { property: "og:title", content: "Tableau de bord — FZANA Control" },
+      { property: "og:title", content: "Tableau de bord — Sophiaco Control" },
       {
         property: "og:description",
         content: "KPI, activité des agents IA et échéances des marchés publics.",

@@ -28,16 +28,16 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/catalogue")({
   head: () => ({
     meta: [
-      { title: "Catalogue produits & prix — FZANA Control" },
+      { title: "Catalogue produits & prix — Sophiaco Control" },
       {
         name: "description",
         content:
-          "Gestion complète du catalogue FZANA : références, fournisseurs, prix d'achat, prix de vente et marges.",
+          "Gestion complète du catalogue Sophiaco : références, fournisseurs, prix d'achat, prix de vente et marges.",
       },
-      { property: "og:title", content: "Catalogue produits & prix — FZANA Control" },
+      { property: "og:title", content: "Catalogue produits & prix — Sophiaco Control" },
       {
         property: "og:description",
-        content: "Ajoutez, modifiez et supprimez les références du catalogue médical FZANA.",
+        content: "Ajoutez, modifiez et supprimez les références du catalogue médical Sophiaco.",
       },
     ],
   }),
@@ -142,7 +142,7 @@ function CataloguePage() {
     <div>
       <PageHeader
         title="Catalogue produits"
-        subtitle="Références, fournisseurs, prix d'achat, prix de vente et marges du catalogue FZANA."
+        subtitle="Références, fournisseurs, prix d'achat, prix de vente et marges du catalogue Sophiaco."
         actions={
           <Button className="btn-shine" onClick={openCreate}>
             <Plus className="mr-2 h-4 w-4" /> Nouveau produit

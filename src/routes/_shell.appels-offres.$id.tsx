@@ -50,13 +50,13 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/appels-offres/$id")({
   head: () => ({
     meta: [
-      { title: "Détail de l'appel d'offres — FZANA Control" },
+      { title: "Détail de l'appel d'offres — Sophiaco Control" },
       {
         name: "description",
         content:
           "Fiche de synthèse, exigences techniques, matching produits et documents générés du dossier.",
       },
-      { property: "og:title", content: "Détail de l'appel d'offres — FZANA Control" },
+      { property: "og:title", content: "Détail de l'appel d'offres — Sophiaco Control" },
       {
         property: "og:description",
         content: "Suivi complet du dossier, de l'identification au résultat.",
@@ -96,7 +96,7 @@ const PIECE_CYCLE: PieceStatus[] = ["Manquante", "À produire", "Fournie"];
 
 export function docContent(t: Tender, type: DocType) {
   const head = [
-    "FZANA SYSTEMS — Distribution d'équipements médicaux",
+    "Sophiaco SYSTEMS — Distribution d'équipements médicaux",
     "===================================================",
     `Document : ${type}`,
     `Appel d'offres : ${t.ref}`,
@@ -126,7 +126,7 @@ export function docContent(t: Tender, type: DocType) {
     head.push("", `TOTAL ESTIMÉ : ${formatMAD(t.budget)}`);
   } else if (type === "Acte d'engagement") {
     head.push(
-      "Le soussigné, agissant au nom et pour le compte de FZANA SYSTEMS,",
+      "Le soussigné, agissant au nom et pour le compte de Sophiaco SYSTEMS,",
       "s'engage à exécuter les prestations objet du présent marché conformément",
       "aux clauses du cahier des charges et aux prix du bordereau joint.",
       "",
@@ -830,7 +830,7 @@ export function DocPreview({ tender, type }: { tender: Tender; type: DocType }) 
     <div className="rounded-lg border border-border bg-card p-8 font-sans text-sm shadow-sm">
       <div className="flex items-start justify-between border-b border-clinical-line pb-4">
         <div>
-          <p className="font-display text-lg font-semibold text-primary">FZANA SYSTEMS</p>
+          <p className="font-display text-lg font-semibold text-primary">Sophiaco SYSTEMS</p>
           <p className="text-xs text-muted-foreground">
             Distribution d'équipements médicaux — Casablanca, Maroc
           </p>
@@ -872,7 +872,7 @@ export function DocPreview({ tender, type }: { tender: Tender; type: DocType }) 
       {type === "Acte d'engagement" ? (
         <div className="space-y-3 leading-relaxed">
           <p>
-            Le soussigné, agissant au nom et pour le compte de <strong>FZANA SYSTEMS</strong>,
+            Le soussigné, agissant au nom et pour le compte de <strong>Sophiaco SYSTEMS</strong>,
             s'engage à exécuter les prestations objet du marché <strong>{tender.ref}</strong>{" "}
             conformément aux clauses du cahier des charges et aux prix portés au bordereau joint.
           </p>
@@ -886,7 +886,7 @@ export function DocPreview({ tender, type }: { tender: Tender; type: DocType }) 
             <tr>
               <th className="py-2">Désignation</th>
               <th className="py-2">Qté</th>
-              <th className="py-2">Solution FZANA</th>
+              <th className="py-2">Solution Sophiaco</th>
               <th className="py-2">
                 {type === "Bordereau des prix" ? "Montant (MAD)" : "Conformité"}
               </th>
@@ -916,7 +916,7 @@ export function DocPreview({ tender, type }: { tender: Tender; type: DocType }) 
       )}
 
       <p className="mt-6 border-t border-clinical-line pt-3 text-[11px] text-muted-foreground">
-        Document généré automatiquement par FZANA Control — Agent Matching Technique & Catalogue.
+        Document généré automatiquement par Sophiaco Control — Agent Matching Technique & Catalogue.
       </p>
     </div>
   );

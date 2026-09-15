@@ -21,7 +21,7 @@ export function AssistantPanel({ tender }: { tender: Tender }) {
       {
         id: "intro",
         role: "assistant",
-        text: `Bonjour, je suis l'assistant FZANA dédié au dossier ${tender.ref} (${tender.client}). Posez-moi une question sur ce marché.`,
+        text: `Bonjour, je suis l'assistant Sophiaco dédié au dossier ${tender.ref} (${tender.client}). Posez-moi une question sur ce marché.`,
       },
     ]);
     setInput("");

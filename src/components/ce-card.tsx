@@ -108,7 +108,7 @@ export function CeCard({ tender }: { tender: Tender }) {
             <dd className="font-medium tabular-nums">{ce.number}</dd>
           </div>
           <div className="flex justify-between gap-3">
-            <dt className="text-muted-foreground">Position de FZANA</dt>
+            <dt className="text-muted-foreground">Position de Sophiaco</dt>
             <dd className="font-medium">{ce.fzanaIsHolder ? "Titulaire" : "Distributeur"}</dd>
           </div>
           {ce.rule === "Usage unique" && (
@@ -158,19 +158,19 @@ export function CeCard({ tender }: { tender: Tender }) {
             <>
               <Button
                 size="sm"
-                variant={ce.usageClaimedBy === "FZANA Systems" ? "secondary" : "default"}
+                variant={ce.usageClaimedBy === "Sophiaco" ? "secondary" : "default"}
                 onClick={() => {
                   updateCe(tender.id, {
                     usageClaimedBy:
-                      ce.usageClaimedBy === "FZANA Systems" ? null : "FZANA Systems",
+                      ce.usageClaimedBy === "Sophiaco" ? null : "Sophiaco",
                   });
                 }}
               >
-                {ce.usageClaimedBy === "FZANA Systems"
+                {ce.usageClaimedBy === "Sophiaco"
                   ? "Libérer le CE"
-                  : "Réserver le CE pour FZANA"}
+                  : "Réserver le CE pour Sophiaco"}
               </Button>
-              {ce.usageClaimedBy !== "FZANA Systems" && (
+              {ce.usageClaimedBy !== "Sophiaco" && (
                 <Button
                   size="sm"
                   variant="outline"
@@ -188,7 +188,7 @@ export function CeCard({ tender }: { tender: Tender }) {
             variant="outline"
             onClick={() => updateCe(tender.id, { fzanaIsHolder: !ce.fzanaIsHolder })}
           >
-            {ce.fzanaIsHolder ? "FZANA est distributeur" : "FZANA est titulaire"}
+            {ce.fzanaIsHolder ? "Sophiaco est distributeur" : "Sophiaco est titulaire"}
           </Button>
         </div>
       )}

@@ -11,17 +11,17 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Connexion — FZANA Control" },
+      { title: "Connexion — Sophiaco Control" },
       {
         name: "description",
         content:
-          "Accès au backoffice FZANA Systems : veille des appels d'offres publics et agents IA.",
+          "Accès au backoffice Sophiaco : veille des appels d'offres publics et agents IA.",
       },
-      { property: "og:title", content: "Connexion — FZANA Control" },
+      { property: "og:title", content: "Connexion — Sophiaco Control" },
       {
         property: "og:description",
         content:
-          "Accès sécurisé au backoffice FZANA Systems pour la gestion des marchés publics santé.",
+          "Accès sécurisé au backoffice Sophiaco pour la gestion des marchés publics santé.",
       },
     ],
   }),
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
 const LOGO = "https://fzana.izemxlab.com/assets/fzana-logo-DBUnkOwq.png";
 
 function LoginPage() {
-  const [email, setEmail] = useState("agent@fzana.ma");
+  const [email, setEmail] = useState("agent@sophiaco.ma");
   const [password, setPassword] = useState("Demo@2026");
   const [loading, setLoading] = useState(false);
   const { login } = useApp();
@@ -53,7 +53,7 @@ function LoginPage() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-sm"
         >
-          <img src={LOGO} alt="FZANA Systems" className="h-10 w-auto" />
+          <img src={LOGO} alt="Sophiaco" className="h-10 w-auto" />
           <h1 className="mt-8 font-display text-3xl font-semibold">Connexion</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Accédez au backoffice de pilotage des appels d'offres.
@@ -101,7 +101,7 @@ function LoginPage() {
               <ShieldCheck className="h-4 w-4 text-accent" /> Accès démonstration
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Email : <span className="font-medium text-foreground">agent@fzana.ma</span> · Mot de
+              Email : <span className="font-medium text-foreground">agent@sophiaco.ma</span> · Mot de
               passe : <span className="font-medium text-foreground">Demo@2026</span>
             </p>
             <Button
@@ -110,7 +110,7 @@ function LoginPage() {
               size="sm"
               className="mt-3 w-full"
               onClick={() => {
-                setEmail("agent@fzana.ma");
+                setEmail("agent@sophiaco.ma");
                 setPassword("Demo@2026");
                 go();
               }}
@@ -142,7 +142,7 @@ function LoginPage() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="font-display text-5xl font-semibold leading-tight"
           >
-            FZANA Control
+            Sophiaco Control
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}

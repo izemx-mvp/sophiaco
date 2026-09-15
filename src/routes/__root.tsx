@@ -79,14 +79,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FZANA Control — Backoffice marchés publics santé" },
+      { title: "Sophiaco Control — Backoffice marchés publics santé" },
       {
         name: "description",
         content:
-          "Backoffice FZANA Systems : veille des appels d'offres, matching catalogue et génération documentaire pilotés par agents IA.",
+          "Backoffice Sophiaco : veille des appels d'offres, matching catalogue et génération documentaire pilotés par agents IA.",
       },
-      { name: "author", content: "FZANA Systems" },
-      { property: "og:title", content: "FZANA Control — Backoffice marchés publics santé" },
+      { name: "author", content: "Sophiaco" },
+      { property: "og:title", content: "Sophiaco Control — Backoffice marchés publics santé" },
       {
         property: "og:description",
         content:

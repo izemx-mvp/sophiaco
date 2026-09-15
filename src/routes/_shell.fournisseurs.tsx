@@ -27,13 +27,13 @@ import { useApp } from "@/lib/store";
 export const Route = createFileRoute("/_shell/fournisseurs")({
   head: () => ({
     meta: [
-      { title: "Fournisseurs — FZANA Control" },
+      { title: "Fournisseurs — Sophiaco Control" },
       {
         name: "description",
         content:
-          "Gestion des fournisseurs FZANA : contacts, disponibilité et références produits rattachées.",
+          "Gestion des fournisseurs Sophiaco : contacts, disponibilité et références produits rattachées.",
       },
-      { property: "og:title", content: "Fournisseurs — FZANA Control" },
+      { property: "og:title", content: "Fournisseurs — Sophiaco Control" },
       {
         property: "og:description",
         content: "Ajoutez, modifiez et supprimez les fournisseurs du catalogue médical.",
@@ -131,7 +131,7 @@ function SuppliersPage() {
     <div>
       <PageHeader
         title="Fournisseurs"
-        subtitle="Partenaires qui approvisionnent les références du catalogue FZANA."
+        subtitle="Partenaires qui approvisionnent les références du catalogue Sophiaco."
         actions={
           <Button className="btn-shine" onClick={openCreate}>
             <Plus className="mr-2 h-4 w-4" /> Nouveau fournisseur
