@@ -28,7 +28,9 @@ export const Route = createFileRoute("/")({
   component: LoginPage,
 });
 
-const LOGO = "https://fzana.izemxlab.com/assets/fzana-logo-DBUnkOwq.png";
+import logoAsset from "@/assets/sophiaco-logo.png.asset.json";
+
+const LOGO = logoAsset.url;
 
 function LoginPage() {
   const [email, setEmail] = useState("agent@sophiaco.ma");

@@ -29,7 +29,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useApp } from "@/lib/store";
 import { toast } from "sonner";
 
-const LOGO = "https://fzana.izemxlab.com/assets/fzana-logo-DBUnkOwq.png";
+import logoAsset from "@/assets/sophiaco-logo.png.asset.json";
+
+const LOGO = logoAsset.url;
 
 const NAV = [
   { to: "/criteres", label: "Critères", icon: SlidersHorizontal },
