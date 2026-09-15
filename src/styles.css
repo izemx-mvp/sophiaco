@@ -62,25 +62,26 @@
   --popover: oklch(100% 0 0);
   --popover-foreground: oklch(26% 0.014 240);
 
-  --primary: oklch(36% 0.072 249);
-  --primary-dark: oklch(29% 0.062 250);
-  --primary-glow: oklch(48% 0.102 238);
+  /* Sophiaco — bleu marine #0d3183, vert #4e8d5b, bleu globe #3a7db5 */
+  --primary: oklch(33% 0.152 266);
+  --primary-dark: oklch(25% 0.128 266);
+  --primary-glow: oklch(55% 0.115 252);
   --primary-foreground: oklch(99% 0 0);
 
-  --accent: oklch(63% 0.104 178);
-  --accent-soft: oklch(95% 0.026 178);
-  --accent-glow: oklch(78% 0.12 178);
+  --accent: oklch(56% 0.099 148);
+  --accent-soft: oklch(95% 0.028 148);
+  --accent-glow: oklch(72% 0.115 148);
   --accent-foreground: oklch(99% 0 0);
 
-  --secondary: oklch(97.2% 0.003 220);
-  --secondary-foreground: oklch(36% 0.072 249);
+  --secondary: oklch(97.2% 0.006 260);
+  --secondary-foreground: oklch(33% 0.152 266);
 
-  --muted: oklch(97.2% 0.003 220);
-  --muted-foreground: oklch(52% 0.014 245);
+  --muted: oklch(97.2% 0.006 260);
+  --muted-foreground: oklch(52% 0.02 262);
 
-  --border: oklch(91% 0.006 240);
-  --input: oklch(91% 0.006 240);
-  --ring: oklch(63% 0.104 178);
+  --border: oklch(91% 0.012 260);
+  --input: oklch(91% 0.012 260);
+  --ring: oklch(56% 0.099 148);
 
   --destructive: oklch(57.7% 0.245 27.325);
   --success: oklch(60% 0.14 155);
