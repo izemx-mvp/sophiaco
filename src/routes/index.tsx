@@ -146,11 +146,11 @@ function LoginPage() {
               }}
             />
           ))}
-          <span className="absolute inset-10 rounded-full bg-white/10 backdrop-blur-sm" />
+          <span className="absolute inset-12 rounded-full border border-white/40 bg-white/90 shadow-2xl backdrop-blur-md" />
           <img
             src={LOGO}
             alt="Sophiaco"
-            className="absolute left-1/2 top-1/2 w-52 -translate-x-1/2 -translate-y-1/2 brightness-0 invert opacity-95 animate-float-slow"
+            className="absolute left-1/2 top-1/2 w-44 -translate-x-1/2 -translate-y-1/2 animate-float-slow"
           />
         </motion.div>
 
