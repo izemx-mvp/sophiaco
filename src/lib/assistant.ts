@@ -58,7 +58,7 @@ export function getAssistantReply(question: string, t: Tender): string {
     const actions = ev.actions.length
       ? `\n\u00c0 faire :\n${ev.actions.map((x) => `\u2022 ${x}`).join("\n")}`
       : "";
-    return `Certificat d'enregistrement de ${t.ref} \u2014 cas \u00ab ${ce.rule} \u00bb (${ce.rcArticle}).\nTitulaire : ${ce.holder}, n\u00b0 ${ce.number}. FZANA intervient comme ${ce.fzanaIsHolder ? "titulaire" : "distributeur"}${ce.fzanaIsHolder ? "" : ce.authorization ? " avec autorisation du titulaire" : " sans autorisation \u00e0 ce jour"}.\n${verdict} \u2014 ${ev.message}${actions}`;
+    return `Certificat d'enregistrement de ${t.ref} \u2014 cas \u00ab ${ce.rule} \u00bb (${ce.rcArticle}).\nTitulaire : ${ce.holder}, n\u00b0 ${ce.number}. Sophiaco intervient comme ${ce.fzanaIsHolder ? "titulaire" : "distributeur"}${ce.fzanaIsHolder ? "" : ce.authorization ? " avec autorisation du titulaire" : " sans autorisation \u00e0 ce jour"}.\n${verdict} \u2014 ${ev.message}${actions}`;
   }
 
   if (has(q, ["date limite", "echeance", "deadline", "quand", "delai"])) {

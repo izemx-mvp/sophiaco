@@ -62,25 +62,26 @@
   --popover: oklch(100% 0 0);
   --popover-foreground: oklch(26% 0.014 240);
 
-  --primary: oklch(36% 0.072 249);
-  --primary-dark: oklch(29% 0.062 250);
-  --primary-glow: oklch(48% 0.102 238);
+  /* Sophiaco — bleu marine #0d3183, vert #4e8d5b, bleu globe #3a7db5 */
+  --primary: oklch(33% 0.152 266);
+  --primary-dark: oklch(25% 0.128 266);
+  --primary-glow: oklch(55% 0.115 252);
   --primary-foreground: oklch(99% 0 0);
 
-  --accent: oklch(63% 0.104 178);
-  --accent-soft: oklch(95% 0.026 178);
-  --accent-glow: oklch(78% 0.12 178);
+  --accent: oklch(56% 0.099 148);
+  --accent-soft: oklch(95% 0.028 148);
+  --accent-glow: oklch(72% 0.115 148);
   --accent-foreground: oklch(99% 0 0);
 
-  --secondary: oklch(97.2% 0.003 220);
-  --secondary-foreground: oklch(36% 0.072 249);
+  --secondary: oklch(97.2% 0.006 260);
+  --secondary-foreground: oklch(33% 0.152 266);
 
-  --muted: oklch(97.2% 0.003 220);
-  --muted-foreground: oklch(52% 0.014 245);
+  --muted: oklch(97.2% 0.006 260);
+  --muted-foreground: oklch(52% 0.02 262);
 
-  --border: oklch(91% 0.006 240);
-  --input: oklch(91% 0.006 240);
-  --ring: oklch(63% 0.104 178);
+  --border: oklch(91% 0.012 260);
+  --input: oklch(91% 0.012 260);
+  --ring: oklch(56% 0.099 148);
 
   --destructive: oklch(57.7% 0.245 27.325);
   --success: oklch(60% 0.14 155);
@@ -88,22 +89,22 @@
   --charcoal: oklch(30% 0.008 240);
   --clinical-line: oklch(88% 0.025 210);
 
-  --chart-1: oklch(36% 0.072 249);
-  --chart-2: oklch(63% 0.104 178);
-  --chart-3: oklch(48% 0.102 238);
-  --chart-4: oklch(78% 0.12 178);
+  --chart-1: oklch(33% 0.152 266);
+  --chart-2: oklch(56% 0.099 148);
+  --chart-3: oklch(55% 0.115 252);
+  --chart-4: oklch(72% 0.115 148);
   --chart-5: oklch(72% 0.15 65);
 
-  --sidebar: oklch(98.5% 0.003 220);
-  --sidebar-foreground: oklch(26% 0.014 240);
-  --sidebar-primary: oklch(36% 0.072 249);
+  --sidebar: oklch(98.5% 0.006 260);
+  --sidebar-foreground: oklch(26% 0.02 262);
+  --sidebar-primary: oklch(33% 0.152 266);
   --sidebar-primary-foreground: oklch(99% 0 0);
-  --sidebar-accent: oklch(95% 0.026 178);
-  --sidebar-accent-foreground: oklch(36% 0.072 249);
-  --sidebar-border: oklch(91% 0.006 240);
-  --sidebar-ring: oklch(63% 0.104 178);
+  --sidebar-accent: oklch(95% 0.028 148);
+  --sidebar-accent-foreground: oklch(33% 0.152 266);
+  --sidebar-border: oklch(91% 0.012 260);
+  --sidebar-ring: oklch(56% 0.099 148);
 
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   --font-sans: "DM Sans", "Segoe UI", sans-serif;
   --font-display: "Space Grotesk", "Segoe UI", sans-serif;
 }
@@ -277,4 +278,67 @@
 
 @utility pulse-accent {
   animation: soft-pulse 2.2s ease-out infinite;
+}
+
+/* ---------- Sophiaco : identité visuelle (globe méridien, bleu marine / vert) ---------- */
+
+@utility brand-mesh {
+  background-image:
+    radial-gradient(60% 55% at 15% 10%, color-mix(in oklab, var(--primary) 92%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 85% 20%, color-mix(in oklab, var(--primary-glow) 70%, transparent), transparent 72%),
+    radial-gradient(60% 60% at 70% 95%, color-mix(in oklab, var(--accent) 60%, transparent), transparent 70%),
+    linear-gradient(140deg, var(--primary-dark), var(--primary) 55%, var(--primary-glow));
+}
+
+@utility meridian-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(70% 60% at 50% 40%, black, transparent 85%);
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@utility animate-orbit {
+  animation: orbit-spin 34s linear infinite;
+}
+
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@utility text-brand-animated {
+  background-image: linear-gradient(100deg, var(--primary), var(--primary-glow) 45%, var(--accent));
+  background-size: 200% 200%;
+  animation: gradient-pan 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility ring-sheen {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(130deg,
+      color-mix(in oklab, var(--primary) 45%, transparent),
+      transparent 45%,
+      color-mix(in oklab, var(--accent) 45%, transparent));
+    -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility logo-glow {
+  filter: drop-shadow(0 6px 18px color-mix(in oklab, var(--primary) 35%, transparent));
 }

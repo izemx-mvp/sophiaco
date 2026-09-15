@@ -29,7 +29,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useApp } from "@/lib/store";
 import { toast } from "sonner";
 
-const LOGO = "https://fzana.izemxlab.com/assets/fzana-logo-DBUnkOwq.png";
+import logoAsset from "@/assets/sophiaco-logo.png.asset.json";
+
+const LOGO = logoAsset.url;
 
 const NAV = [
   { to: "/criteres", label: "Critères", icon: SlidersHorizontal },
@@ -89,9 +91,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="aurora-bg" aria-hidden />
 
       <header className="sticky top-0 z-30 border-b border-border/70 bg-background/70 backdrop-blur-xl">
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
         <div className="flex h-16 items-center gap-4 px-4 md:px-8">
-          <Link to="/dashboard" className="shrink-0">
-            <img src={LOGO} alt="FZANA Systems" className="h-8 w-auto" />
+          <Link to="/dashboard" className="group flex shrink-0 items-center gap-2.5">
+            <img
+              src={LOGO}
+              alt="Sophiaco"
+              className="h-9 w-auto transition-transform duration-300 group-hover:scale-105 logo-glow"
+            />
+            <span className="hidden flex-col leading-none sm:flex">
+              <span className="font-display text-base font-semibold tracking-tight text-primary">
+                Sophiaco
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-accent">Control</span>
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">{NAV.map((n) => navLink(n))}</nav>
@@ -173,7 +186,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                       Mme Naoual Elhaoussi
                     </span>
                     <span className="block text-[11px] leading-tight text-muted-foreground">
-                      FZANA Systems
+                      Sophiaco
                     </span>
                   </span>
                 </button>
@@ -182,7 +195,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => toast("Profil : Mme Naoual Elhaoussi — FZANA Systems")}
+                  onClick={() => toast("Profil : Mme Naoual Elhaoussi — Sophiaco")}
                 >
                   <User className="mr-2 h-4 w-4" /> Profil
                 </DropdownMenuItem>

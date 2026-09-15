@@ -51,7 +51,7 @@ export type Product = {
   reference: string;
   /** Prix d'achat fournisseur, en MAD HT. */
   purchasePrice: number;
-  /** Prix de vente catalogue FZANA, en MAD HT. */
+  /** Prix de vente catalogue Sophiaco, en MAD HT. */
   salePrice: number;
 };
 
@@ -152,7 +152,7 @@ export type CeInfo = {
   holder: string;
   /** Numéro d'enregistrement DMP. */
   number: string;
-  /** FZANA est-elle titulaire du CE mobilisé ? */
+  /** Sophiaco est-elle titulaire du CE mobilisé ? */
   fzanaIsHolder: boolean;
   /** Autorisation écrite du titulaire obtenue et signée. */
   authorization: boolean;
@@ -167,7 +167,7 @@ export type CeEvaluation = {
   actions: string[];
 };
 
-/** Évalue l'éligibilité de FZANA au regard de l'exigence CE du dossier. */
+/** Évalue l'éligibilité de Sophiaco au regard de l'exigence CE du dossier. */
 export function evaluateCe(ce: CeInfo): CeEvaluation {
   if (ce.rule === "Non exigé")
     return {
@@ -182,15 +182,15 @@ export function evaluateCe(ce: CeInfo): CeEvaluation {
       ? {
           level: "ok",
           label: "Éligible — titulaire",
-          message: `FZANA est titulaire du CE n° ${ce.number} : la soumission est recevable.`,
+          message: `Sophiaco est titulaire du CE n° ${ce.number} : la soumission est recevable.`,
           actions: ["Joindre la copie du certificat d'enregistrement au dossier technique."],
         }
       : {
           level: "blocked",
           label: "Soumission impossible",
-          message: `Le RC réserve la soumission au titulaire du CE (${ce.holder}). En tant que distributeur, FZANA ne peut pas participer, même avec une autorisation.`,
+          message: `Le RC réserve la soumission au titulaire du CE (${ce.holder}). En tant que distributeur, Sophiaco ne peut pas participer, même avec une autorisation.`,
           actions: [
-            "Écarter le dossier ou proposer une gamme dont FZANA est titulaire du CE.",
+            "Écarter le dossier ou proposer une gamme dont Sophiaco est titulaire du CE.",
             "Vérifier si un additif au CPS assouplit l'exigence.",
           ],
         };
@@ -201,20 +201,20 @@ export function evaluateCe(ce: CeInfo): CeEvaluation {
       return {
         level: "ok",
         label: "Éligible — titulaire",
-        message: `FZANA est titulaire du CE n° ${ce.number} : aucune autorisation tierce n'est nécessaire.`,
+        message: `Sophiaco est titulaire du CE n° ${ce.number} : aucune autorisation tierce n'est nécessaire.`,
         actions: [],
       };
     return ce.authorization
       ? {
           level: "ok",
           label: "Éligible — autorisation en place",
-          message: `Autorisation du titulaire ${ce.holder} obtenue : FZANA peut soumissionner en tant que distributeur.`,
+          message: `Autorisation du titulaire ${ce.holder} obtenue : Sophiaco peut soumissionner en tant que distributeur.`,
           actions: ["Joindre l'autorisation signée du titulaire au dossier technique."],
         }
       : {
           level: "warn",
           label: "Autorisation à obtenir",
-          message: `FZANA est distributeur : une autorisation écrite de ${ce.holder} est obligatoire avant le dépôt.`,
+          message: `Sophiaco est distributeur : une autorisation écrite de ${ce.holder} est obligatoire avant le dépôt.`,
           actions: [
             `Demander l'autorisation d'utilisation du CE n° ${ce.number} à ${ce.holder}.`,
             "Ajouter la pièce « Autorisation du titulaire du CE » au dossier.",
@@ -223,12 +223,12 @@ export function evaluateCe(ce: CeInfo): CeEvaluation {
   }
 
   // Usage unique
-  const me = "FZANA Systems";
+  const me = "Sophiaco";
   if (ce.usageClaimedBy && ce.usageClaimedBy !== me)
     return {
       level: "blocked",
       label: "CE déjà mobilisé",
-      message: `Le CE n° ${ce.number} est déjà engagé sur ce marché par ${ce.usageClaimedBy}. Il ne peut servir qu'une seule fois : FZANA ne peut pas l'utiliser.`,
+      message: `Le CE n° ${ce.number} est déjà engagé sur ce marché par ${ce.usageClaimedBy}. Il ne peut servir qu'une seule fois : Sophiaco ne peut pas l'utiliser.`,
       actions: [
         "Chercher un CE alternatif (autre titulaire / autre gamme).",
         "Confirmer auprès du titulaire qu'aucune autre offre ne s'appuie sur ce CE.",
@@ -241,19 +241,19 @@ export function evaluateCe(ce: CeInfo): CeEvaluation {
       message: `Le CE n° ${ce.number} n'est pas encore réservé pour ce marché. Il ne peut être utilisé que par une seule offre : sécurisez son exclusivité avant le dépôt.`,
       actions: [
         `Obtenir de ${ce.holder} la confirmation écrite d'exclusivité pour ce marché.`,
-        "Réserver le CE pour FZANA dans le dossier.",
+        "Réserver le CE pour Sophiaco dans le dossier.",
       ],
     };
   return {
     level: ce.fzanaIsHolder || ce.authorization ? "ok" : "warn",
     label:
       ce.fzanaIsHolder || ce.authorization
-        ? "Éligible — CE réservé à FZANA"
+        ? "Éligible — CE réservé à Sophiaco"
         : "CE réservé — autorisation manquante",
     message:
       ce.fzanaIsHolder || ce.authorization
-        ? `Le CE n° ${ce.number} est mobilisé exclusivement par FZANA pour ce marché.`
-        : `Le CE n° ${ce.number} est réservé à FZANA, mais l'autorisation écrite de ${ce.holder} manque encore.`,
+        ? `Le CE n° ${ce.number} est mobilisé exclusivement par Sophiaco pour ce marché.`
+        : `Le CE n° ${ce.number} est réservé à Sophiaco, mais l'autorisation écrite de ${ce.holder} manque encore.`,
     actions:
       ce.fzanaIsHolder || ce.authorization
         ? ["Joindre l'attestation d'exclusivité au dossier technique."]
@@ -328,7 +328,7 @@ export const PIECES_MODEL: Array<Omit<DossierPiece, "id" | "status">> = [
     name: "Note de présentation de l'entreprise",
     category: "Dossier technique",
     mandatory: true,
-    note: "Moyens, organisation et expérience de FZANA Systems.",
+    note: "Moyens, organisation et expérience de Sophiaco.",
   },
   {
     name: "Moyens humains et matériels",
@@ -669,9 +669,9 @@ export type Certificate = {
 export const CERTIFICATES: Certificate[] = [
   {
     id: "c1",
-    product: "Certificat d'enregistrement — gamme équipements FZANA",
+    product: "Certificat d'enregistrement — gamme équipements Sophiaco",
     category: "Bloc opératoire",
-    holder: "FZANA Systems (titulaire)",
+    holder: "Sophiaco (titulaire)",
     number: "DMP/2023/0871",
     expires: "2026-04-30",
     status: "En renouvellement",
@@ -707,7 +707,7 @@ export const CERTIFICATES: Certificate[] = [
     id: "c5",
     product: "Lit médicalisé électrique 4 sections",
     category: "Mobilier médical",
-    holder: "FZANA Systems (titulaire)",
+    holder: "Sophiaco (titulaire)",
     number: "DMP/2022/0644",
     expires: "2026-09-28",
     status: "Expire bientôt",
@@ -1207,19 +1207,19 @@ function ceFor(i: number, category: Category): CeInfo {
     Diagnostic: "Sanitas Distribution",
     Réanimation: "MedTech Maghreb",
     Stérilisation: "Cleanmed Industrie",
-    "Mobilier médical": "FZANA Systems",
+    "Mobilier médical": "Sophiaco",
     Consommables: "Cleanmed Industrie",
   };
   const holder = holders[category] ?? "MedTech Maghreb";
-  const fzanaIsHolder = holder === "FZANA Systems";
+  const fzanaIsHolder = holder === "Sophiaco";
   return {
     rule,
     rcArticle: `Article ${8 + (i % 6)} du règlement de consultation`,
-    holder: fzanaIsHolder ? "FZANA Systems (titulaire)" : holder,
+    holder: fzanaIsHolder ? "Sophiaco (titulaire)" : holder,
     number: `DMP/${2022 + (i % 4)}/${String(100 + i * 37).slice(0, 4)}`,
     fzanaIsHolder,
     authorization: !fzanaIsHolder && i % 3 !== 1,
-    usageClaimedBy: rule === "Usage unique" ? (i % 3 === 0 ? "FZANA Systems" : null) : null,
+    usageClaimedBy: rule === "Usage unique" ? (i % 3 === 0 ? "Sophiaco" : null) : null,
   };
 }
 
@@ -1283,7 +1283,7 @@ export const TENDERS: Tender[] = seeds.map((s, i) => {
       `Objet du marché : ${s.objet}.`,
       `Procédure : ${s.procedure ?? AOO}, ouverture des plis le ${new Date(s.deadline).toLocaleDateString("fr-FR")} à 10h00.`,
       `Budget estimé ${s.budget.toLocaleString("fr-MA")} MAD, caution provisoire ${s.caution.toLocaleString("fr-MA")} MAD.`,
-      `${requirements.length} lot(s) analysé(s) — taux de conformité produit estimé à ${avg}% sur la base du catalogue FZANA.`,
+      `${requirements.length} lot(s) analysé(s) — taux de conformité produit estimé à ${avg}% sur la base du catalogue Sophiaco.`,
       `Certificat d'enregistrement (${ce.rcArticle}) : ${ce.rule.toLowerCase()} — ${evaluateCe(ce).message}`,
     ],
   } satisfies Tender;
@@ -1309,7 +1309,7 @@ export const AGENT_LOGS_VEILLE = [
 ];
 
 export const AGENT_LOGS_MATCHING = [
-  "→ Chargement du catalogue produits FZANA (14 références)",
+  "→ Chargement du catalogue produits Sophiaco (14 références)",
   "→ Normalisation des spécifications techniques…",
   "→ Calcul des scores de similarité (specs, catégorie, quantité)",
   "✓ 12 lignes appariées avec score ≥ 90%",
@@ -1404,7 +1404,7 @@ export function generateDiscoveredTender(opts: {
       `Objet du marché : ${objet}.`,
       `Procédure : ${AOO}, ouverture des plis le ${new Date(deadline).toLocaleDateString("fr-FR")} à 10h00.`,
       `Budget estimé ${budget.toLocaleString("fr-MA")} MAD, caution provisoire ${caution.toLocaleString("fr-MA")} MAD.`,
-      `${requirements.length} lot(s) — taux de conformité produit estimé à ${avg}% sur la base du catalogue FZANA.`,
+      `${requirements.length} lot(s) — taux de conformité produit estimé à ${avg}% sur la base du catalogue Sophiaco.`,
     ],
   };
 }
