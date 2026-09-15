@@ -279,3 +279,66 @@
 @utility pulse-accent {
   animation: soft-pulse 2.2s ease-out infinite;
 }
+
+/* ---------- Sophiaco : identité visuelle (globe méridien, bleu marine / vert) ---------- */
+
+@utility brand-mesh {
+  background-image:
+    radial-gradient(60% 55% at 15% 10%, color-mix(in oklab, var(--primary) 92%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 85% 20%, color-mix(in oklab, var(--primary-glow) 70%, transparent), transparent 72%),
+    radial-gradient(60% 60% at 70% 95%, color-mix(in oklab, var(--accent) 60%, transparent), transparent 70%),
+    linear-gradient(140deg, var(--primary-dark), var(--primary) 55%, var(--primary-glow));
+}
+
+@utility meridian-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(70% 60% at 50% 40%, black, transparent 85%);
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@utility animate-orbit {
+  animation: orbit-spin 34s linear infinite;
+}
+
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@utility text-brand-animated {
+  background-image: linear-gradient(100deg, var(--primary), var(--primary-glow) 45%, var(--accent));
+  background-size: 200% 200%;
+  animation: gradient-pan 7s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility ring-sheen {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(130deg,
+      color-mix(in oklab, var(--primary) 45%, transparent),
+      transparent 45%,
+      color-mix(in oklab, var(--accent) 45%, transparent));
+    -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility logo-glow {
+  filter: drop-shadow(0 6px 18px color-mix(in oklab, var(--primary) 35%, transparent));
+}
