@@ -91,9 +91,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="aurora-bg" aria-hidden />
 
       <header className="sticky top-0 z-30 border-b border-border/70 bg-background/70 backdrop-blur-xl">
+        <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
         <div className="flex h-16 items-center gap-4 px-4 md:px-8">
-          <Link to="/dashboard" className="shrink-0">
-            <img src={LOGO} alt="Sophiaco" className="h-8 w-auto" />
+          <Link to="/dashboard" className="group flex shrink-0 items-center gap-2.5">
+            <img
+              src={LOGO}
+              alt="Sophiaco"
+              className="h-9 w-auto transition-transform duration-300 group-hover:scale-105 logo-glow"
+            />
+            <span className="hidden flex-col leading-none sm:flex">
+              <span className="font-display text-base font-semibold tracking-tight text-primary">
+                Sophiaco
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-accent">Control</span>
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">{NAV.map((n) => navLink(n))}</nav>
